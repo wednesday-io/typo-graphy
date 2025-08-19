@@ -1,12 +1,16 @@
-import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import './globals.css'
+import type React from "react"
+import type { Metadata } from "next"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: "Typo-graphy - Master Your Typing Skills",
+  description:
+    "A modern typing test app to improve your typing speed and accuracy. Practice with real-time feedback, scoring, and performance tracking.",
+  generator: "v0.app",
+  keywords: ["typing test", "typing speed", "WPM", "typing practice", "keyboard skills"],
 }
 
 export default function RootLayout({
@@ -25,7 +29,11 @@ html {
 }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
