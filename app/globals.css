@@ -43,6 +43,13 @@
   --typing-correct: oklch(0.6 0.15 145); /* Green for correct characters */
   --typing-incorrect: oklch(0.577 0.245 27.325); /* Red for incorrect characters */
   --typing-current: oklch(0.646 0.118 184.704); /* Primary color for current character */
+
+  /* Added font family variables for the 5 font options */
+  --font-geist: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-jetbrains: var(--font-jetbrains);
+  --font-courier: var(--font-courier);
+  --font-fira: var(--font-fira);
 }
 
 .dark {
@@ -135,5 +142,29 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Added font family classes for easy switching */
+  .font-geist {
+    font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+  }
+
+  .font-jetbrains {
+    font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+  }
+
+  .font-courier {
+    font-family: var(--font-courier), "Courier New", Courier, monospace;
+  }
+
+  .font-fira {
+    font-family: var(--font-fira), ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
   }
 }
