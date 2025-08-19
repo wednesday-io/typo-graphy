@@ -2,6 +2,7 @@
 import { ChevronDown, Type } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useEffect, useState } from "react"
 
 const fonts = [
   { name: "Geist Sans", value: "font-geist", label: "Modern Sans" },
@@ -18,9 +19,21 @@ interface FontSelectorProps {
 
 export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) {
   const currentFont = fonts.find((font) => font.value === selectedFont) || fonts[0]
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    const handleToggleFont = () => {
+      const currentIndex = fonts.findIndex((font) => font.value === selectedFont)
+      const nextIndex = (currentIndex + 1) % fonts.length
+      onFontChange(fonts[nextIndex].value)
+    }
+
+    window.addEventListener("toggle-font", handleToggleFont)
+    return () => window.removeEventListener("toggle-font", handleToggleFont)
+  }, [selectedFont, onFontChange])
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="h-9 gap-2">
           <Type className="h-4 w-4" />

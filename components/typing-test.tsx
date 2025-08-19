@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -88,8 +87,44 @@ export default function TypingTest() {
     calculateStats()
   }, [calculateStats])
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.metaKey && e.shiftKey) {
+        switch (e.key.toLowerCase()) {
+          case "r":
+            e.preventDefault()
+            resetTest()
+            break
+          case "t":
+            e.preventDefault()
+            // Trigger theme toggle - dispatch custom event
+            window.dispatchEvent(new CustomEvent("toggle-theme"))
+            break
+          case "f":
+            e.preventDefault()
+            // Trigger font selector - dispatch custom event
+            window.dispatchEvent(new CustomEvent("toggle-font"))
+            break
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
+
+    const currentWordEnd = currentText.indexOf(" ", currentIndex)
+    const isAtWordEnd = currentWordEnd === -1 ? currentIndex >= currentText.length - 1 : currentIndex >= currentWordEnd
+
+    // If user types space and we're not at a space in the original text, don't allow it
+    if (value.length > userInput.length && value[value.length - 1] === " ") {
+      if (currentIndex < currentText.length && currentText[currentIndex] !== " ") {
+        return // Don't update if trying to add space where there shouldn't be one
+      }
+    }
 
     // Don't allow typing beyond the text length
     if (value.length <= currentText.length) {
@@ -127,16 +162,16 @@ export default function TypingTest() {
       if (index < userInput.length) {
         // Typed characters
         if (userInput[index] === char) {
-          className += "text-[color:var(--typing-correct)] bg-green-100 dark:bg-green-900/20"
+          className += "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20"
         } else {
-          className += "text-[color:var(--typing-incorrect)] bg-red-100 dark:bg-red-900/20"
+          className += "text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20"
         }
       } else if (index === currentIndex) {
         // Current character
-        className += "bg-[color:var(--typing-current)] text-white animate-pulse"
+        className += "bg-blue-500 dark:bg-blue-400 text-white animate-pulse"
       } else {
         // Untyped characters
-        className += "text-muted-foreground"
+        className += "text-gray-500 dark:text-gray-400"
       }
 
       return (
@@ -148,86 +183,88 @@ export default function TypingTest() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold text-foreground">TypeSpeed</h1>
-          <p className="text-muted-foreground">Test your typing speed and accuracy</p>
-        </div>
+    <div className="space-y-6">
+      <div className="text-center space-y-2">
+        <p className="text-gray-600 dark:text-gray-400">Test your typing speed and accuracy</p>
+      </div>
 
-        {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{stats.wpm}</div>
-            <div className="text-sm text-muted-foreground">WPM</div>
-          </Card>
-          <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{stats.accuracy}%</div>
-            <div className="text-sm text-muted-foreground">Accuracy</div>
-          </Card>
-          <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-destructive">{stats.errors}</div>
-            <div className="text-sm text-muted-foreground">Errors</div>
-          </Card>
-          <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-secondary">{timeLeft}s</div>
-            <div className="text-sm text-muted-foreground">Time Left</div>
-          </Card>
-        </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+          <div className="text-2xl font-bold text-black dark:text-white">{stats.wpm}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">WPM</div>
+        </Card>
+        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+          <div className="text-2xl font-bold text-black dark:text-white">{stats.accuracy}%</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Accuracy</div>
+        </Card>
+        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+          <div className="text-2xl font-bold text-red-500">{stats.errors}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Errors</div>
+        </Card>
+        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+          <div className="text-2xl font-bold text-black dark:text-white">{timeLeft}s</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Time Left</div>
+        </Card>
+      </div>
 
-        {/* Typing Area */}
-        <Card className="p-6">
-          <div className="space-y-4">
-            {/* Text Display */}
-            <div className="text-lg leading-relaxed font-mono p-4 bg-muted rounded-lg min-h-[120px] select-none">
-              {renderText()}
+      {/* Typing Area */}
+      <Card className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <div className="space-y-4">
+          {/* Text Display */}
+          <div className="text-lg leading-relaxed font-mono p-4 bg-gray-50 dark:bg-gray-800 rounded-lg min-h-[120px] select-none">
+            {renderText()}
+          </div>
+
+          {/* Input Area */}
+          <textarea
+            value={userInput}
+            onChange={handleInputChange}
+            disabled={isCompleted || timeLeft === 0}
+            placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
+            className="w-full h-32 p-4 text-lg font-mono bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-black dark:text-white"
+            autoFocus
+          />
+        </div>
+      </Card>
+
+      {/* Controls */}
+      <div className="flex justify-center gap-4">
+        <Button onClick={resetTest} variant="outline" className="border-gray-300 dark:border-gray-600 bg-transparent">
+          New Test
+        </Button>
+        {isCompleted && (
+          <Button
+            onClick={resetTest}
+            className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
+          >
+            Try Again
+          </Button>
+        )}
+      </div>
+
+      {/* Results */}
+      {isCompleted && (
+        <Card className="p-6 text-center space-y-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-bold text-black dark:text-white">Test Complete!</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-lg">
+            <div>
+              <div className="text-3xl font-bold text-black dark:text-white">{stats.wpm}</div>
+              <div className="text-gray-600 dark:text-gray-400">Words per minute</div>
             </div>
-
-            {/* Input Area */}
-            <textarea
-              value={userInput}
-              onChange={handleInputChange}
-              disabled={isCompleted || timeLeft === 0}
-              placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
-              className="w-full h-32 p-4 text-lg font-mono bg-input border border-border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed"
-              autoFocus
-            />
+            <div>
+              <div className="text-3xl font-bold text-black dark:text-white">{stats.accuracy}%</div>
+              <div className="text-gray-600 dark:text-gray-400">Accuracy</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-red-500">{stats.errors}</div>
+              <div className="text-gray-600 dark:text-gray-400">Total errors</div>
+            </div>
           </div>
         </Card>
+      )}
 
-        {/* Controls */}
-        <div className="flex justify-center gap-4">
-          <Button onClick={resetTest} variant="outline">
-            New Test
-          </Button>
-          {isCompleted && (
-            <Button onClick={resetTest} className="bg-primary hover:bg-primary/90">
-              Try Again
-            </Button>
-          )}
-        </div>
-
-        {/* Results */}
-        {isCompleted && (
-          <Card className="p-6 text-center space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">Test Complete!</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-lg">
-              <div>
-                <div className="text-3xl font-bold text-primary">{stats.wpm}</div>
-                <div className="text-muted-foreground">Words per minute</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary">{stats.accuracy}%</div>
-                <div className="text-muted-foreground">Accuracy</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-destructive">{stats.errors}</div>
-                <div className="text-muted-foreground">Total errors</div>
-              </div>
-            </div>
-          </Card>
-        )}
+      <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+        <p>Keyboard shortcuts: Cmd+Shift+R (restart) • Cmd+Shift+T (theme) • Cmd+Shift+F (font)</p>
       </div>
     </div>
   )

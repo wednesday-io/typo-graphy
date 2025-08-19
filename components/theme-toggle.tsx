@@ -1,11 +1,21 @@
 "use client"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme()
+
+  useEffect(() => {
+    const handleToggleTheme = () => {
+      setTheme(theme === "light" ? "dark" : "light")
+    }
+
+    window.addEventListener("toggle-theme", handleToggleTheme)
+    return () => window.removeEventListener("toggle-theme", handleToggleTheme)
+  }, [setTheme, theme])
 
   return (
     <Button
