@@ -106,12 +106,26 @@ export default function TypingTest() {
             // Trigger font selector - dispatch custom event
             window.dispatchEvent(new CustomEvent("toggle-font"))
             break
+          case "s":
+            e.preventDefault()
+            // Trigger shake mode toggle - dispatch custom event
+            window.dispatchEvent(new CustomEvent("toggle-shake-mode"))
+            break
         }
       }
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  useEffect(() => {
+    const handleShakeModeChange = (e: CustomEvent) => {
+      setShakeMode(e.detail)
+    }
+
+    window.addEventListener("shake-mode-change", handleShakeModeChange as EventListener)
+    return () => window.removeEventListener("shake-mode-change", handleShakeModeChange as EventListener)
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -190,7 +204,7 @@ export default function TypingTest() {
       let className = "transition-colors duration-150 "
 
       if (shakeMode && index >= currentWordStart && index <= currentWordEnd && !isCompleted) {
-        className += "animate-bounce "
+        className += "animate-pulse animate-bounce "
       }
 
       if (index < userInput.length) {
@@ -266,17 +280,6 @@ export default function TypingTest() {
         <Button onClick={resetTest} variant="outline" className="border-gray-300 dark:border-gray-600 bg-transparent">
           New Test
         </Button>
-        <Button
-          onClick={() => setShakeMode(!shakeMode)}
-          variant={shakeMode ? "default" : "outline"}
-          className={
-            shakeMode
-              ? "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
-              : "border-gray-300 dark:border-gray-600 bg-transparent"
-          }
-        >
-          {shakeMode ? "Shake: ON" : "Shake: OFF"}
-        </Button>
         {isCompleted && (
           <Button
             onClick={resetTest}
@@ -288,7 +291,9 @@ export default function TypingTest() {
       </div>
 
       <div className="text-center text-sm text-gray-500 dark:text-gray-400">
-        <p>Keyboard shortcuts: Cmd+Shift+R (restart) • Cmd+Shift+T (theme) • Cmd+Shift+F (font)</p>
+        <p>
+          Keyboard shortcuts: Cmd+Shift+R (restart) • Cmd+Shift+T (theme) • Cmd+Shift+F (font) • Cmd+Shift+S (shake)
+        </p>
       </div>
     </div>
   )
