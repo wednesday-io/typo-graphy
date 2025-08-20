@@ -6,21 +6,21 @@
 :root {
   /* Applied custom color palette from user's image */
   --background: #f3e2d4; /* Light beige/cream */
-  --foreground: #17313e; /* Very dark blue-green */
+  --foreground: #ffffff; /* White text */
   --card: #f3e2d4;
-  --card-foreground: #17313e;
+  --card-foreground: #ffffff; /* White text */
   --popover: #f3e2d4;
-  --popover-foreground: #17313e;
+  --popover-foreground: #ffffff; /* White text */
   --primary: #415e72; /* Dark blue-gray */
-  --primary-foreground: #f3e2d4;
+  --primary-foreground: #ffffff; /* White text */
   --secondary: #c5b0cd; /* Light purple/lavender */
-  --secondary-foreground: #17313e;
+  --secondary-foreground: #ffffff; /* White text */
   --muted: #c5b0cd;
-  --muted-foreground: #415e72;
+  --muted-foreground: #ffffff; /* White text */
   --accent: #c5b0cd;
-  --accent-foreground: #17313e;
+  --accent-foreground: #ffffff; /* White text */
   --destructive: #ef4444; /* Light red for errors */
-  --destructive-foreground: #f3e2d4;
+  --destructive-foreground: #ffffff; /* White text */
   --border: #c5b0cd;
   --input: #f3e2d4;
   --ring: #415e72;
@@ -31,11 +31,11 @@
   --chart-5: #ef4444;
   --radius: 0.625rem;
   --sidebar: #f3e2d4;
-  --sidebar-foreground: #17313e;
+  --sidebar-foreground: #ffffff; /* White text */
   --sidebar-primary: #415e72;
-  --sidebar-primary-foreground: #f3e2d4;
+  --sidebar-primary-foreground: #ffffff; /* White text */
   --sidebar-accent: #c5b0cd;
-  --sidebar-accent-foreground: #17313e;
+  --sidebar-accent-foreground: #ffffff; /* White text */
   --sidebar-border: #c5b0cd;
   --sidebar-ring: #415e72;
 }
@@ -43,21 +43,21 @@
 .dark {
   /* Dark theme using the same palette with inverted relationships */
   --background: #17313e; /* Very dark blue-green */
-  --foreground: #f3e2d4; /* Light beige/cream */
+  --foreground: #ffffff; /* White text */
   --card: #17313e;
-  --card-foreground: #f3e2d4;
+  --card-foreground: #ffffff; /* White text */
   --popover: #17313e;
-  --popover-foreground: #f3e2d4;
+  --popover-foreground: #ffffff; /* White text */
   --primary: #c5b0cd; /* Light purple/lavender */
-  --primary-foreground: #17313e;
+  --primary-foreground: #ffffff; /* White text */
   --secondary: #415e72; /* Dark blue-gray */
-  --secondary-foreground: #f3e2d4;
+  --secondary-foreground: #ffffff; /* White text */
   --muted: #415e72;
-  --muted-foreground: #c5b0cd;
+  --muted-foreground: #ffffff; /* White text */
   --accent: #415e72;
-  --accent-foreground: #f3e2d4;
+  --accent-foreground: #ffffff; /* White text */
   --destructive: #fca5a5; /* Lighter red for dark mode */
-  --destructive-foreground: #17313e;
+  --destructive-foreground: #ffffff; /* White text */
   --border: #415e72;
   --input: #415e72;
   --ring: #c5b0cd;
@@ -67,11 +67,11 @@
   --chart-4: #17313e;
   --chart-5: #fca5a5;
   --sidebar: #17313e;
-  --sidebar-foreground: #f3e2d4;
+  --sidebar-foreground: #ffffff; /* White text */
   --sidebar-primary: #c5b0cd;
-  --sidebar-primary-foreground: #17313e;
+  --sidebar-primary-foreground: #ffffff; /* White text */
   --sidebar-accent: #415e72;
-  --sidebar-accent-foreground: #f3e2d4;
+  --sidebar-accent-foreground: #ffffff; /* White text */
   --sidebar-border: #415e72;
   --sidebar-ring: #c5b0cd;
 }
