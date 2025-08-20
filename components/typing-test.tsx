@@ -32,6 +32,7 @@ export default function TypingTest() {
     timeElapsed: 0,
   })
   const [isCompleted, setIsCompleted] = useState(false)
+  const [shakeMode, setShakeMode] = useState(false)
 
   // Initialize with random text
   useEffect(() => {
@@ -170,8 +171,27 @@ export default function TypingTest() {
   }
 
   const renderText = () => {
+    const words = currentText.split(" ")
+    let currentWordStart = 0
+    let currentWordEnd = 0
+    let wordIndex = 0
+
+    // Find which word the current index is in
+    for (let i = 0; i < words.length; i++) {
+      currentWordEnd = currentWordStart + words[i].length
+      if (currentIndex >= currentWordStart && currentIndex <= currentWordEnd) {
+        wordIndex = i
+        break
+      }
+      currentWordStart = currentWordEnd + 1 // +1 for space
+    }
+
     return currentText.split("").map((char, index) => {
       let className = "transition-colors duration-150 "
+
+      if (shakeMode && index >= currentWordStart && index <= currentWordEnd && !isCompleted) {
+        className += "animate-bounce "
+      }
 
       if (index < userInput.length) {
         // Typed characters
@@ -246,6 +266,17 @@ export default function TypingTest() {
         <Button onClick={resetTest} variant="outline" className="border-gray-300 dark:border-gray-600 bg-transparent">
           New Test
         </Button>
+        <Button
+          onClick={() => setShakeMode(!shakeMode)}
+          variant={shakeMode ? "default" : "outline"}
+          className={
+            shakeMode
+              ? "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
+              : "border-gray-300 dark:border-gray-600 bg-transparent"
+          }
+        >
+          {shakeMode ? "Shake: ON" : "Shake: OFF"}
+        </Button>
         {isCompleted && (
           <Button
             onClick={resetTest}
@@ -255,27 +286,6 @@ export default function TypingTest() {
           </Button>
         )}
       </div>
-
-      {/* Results */}
-      {isCompleted && (
-        <Card className="p-6 text-center space-y-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-black dark:text-white">Test Complete!</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-lg">
-            <div>
-              <div className="text-3xl font-bold text-black dark:text-white">{stats.wpm}</div>
-              <div className="text-gray-600 dark:text-gray-400">Words per minute</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-black dark:text-white">{stats.accuracy}%</div>
-              <div className="text-gray-600 dark:text-gray-400">Accuracy</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-red-500">{stats.errors}</div>
-              <div className="text-gray-600 dark:text-gray-400">Total errors</div>
-            </div>
-          </div>
-        </Card>
-      )}
 
       <div className="text-center text-sm text-gray-500 dark:text-gray-400">
         <p>Keyboard shortcuts: Cmd+Shift+R (restart) • Cmd+Shift+T (theme) • Cmd+Shift+F (font)</p>
