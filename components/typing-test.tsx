@@ -131,13 +131,11 @@ export default function TypingTest() {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
 
-    // If user types space, find the next space in the original text and jump there
     if (value.length > userInput.length && value[value.length - 1] === " ") {
       const nextSpaceIndex = currentText.indexOf(" ", currentIndex)
       if (nextSpaceIndex !== -1) {
-        // Fill in the skipped characters as errors and jump to after the next space
-        const skippedText = currentText.substring(userInput.length, nextSpaceIndex + 1)
-        const newInput = userInput + skippedText
+        // Fill in the skipped characters and jump to after the next space
+        const newInput = userInput + currentText.substring(userInput.length, nextSpaceIndex + 1)
         setUserInput(newInput)
         setCurrentIndex(newInput.length)
 
@@ -210,16 +208,16 @@ export default function TypingTest() {
       if (index < userInput.length) {
         // Typed characters
         if (userInput[index] === char) {
-          className += "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20"
+          className += "text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30"
         } else {
-          className += "text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20"
+          className += "text-red-400 bg-red-100 dark:text-red-300 dark:bg-red-900/30"
         }
       } else if (index === currentIndex) {
         // Current character
-        className += "bg-blue-500 dark:bg-blue-400 text-white animate-pulse"
+        className += "bg-primary text-primary-foreground animate-pulse"
       } else {
         // Untyped characters
-        className += "text-gray-500 dark:text-gray-400"
+        className += "text-muted-foreground"
       }
 
       return (
@@ -233,33 +231,33 @@ export default function TypingTest() {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <p className="text-gray-600 dark:text-gray-400">Test your typing speed and accuracy</p>
+        <p className="text-muted-foreground">Test your typing speed and accuracy</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-          <div className="text-2xl font-bold text-black dark:text-white">{stats.wpm}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">WPM</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-card-foreground">{stats.wpm}</div>
+          <div className="text-sm text-muted-foreground">WPM</div>
         </Card>
-        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-          <div className="text-2xl font-bold text-black dark:text-white">{stats.accuracy}%</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Accuracy</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-card-foreground">{stats.accuracy}%</div>
+          <div className="text-sm text-muted-foreground">Accuracy</div>
         </Card>
-        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-          <div className="text-2xl font-bold text-red-500">{stats.errors}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Errors</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-destructive">{stats.errors}</div>
+          <div className="text-sm text-muted-foreground">Errors</div>
         </Card>
-        <Card className="p-4 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-          <div className="text-2xl font-bold text-black dark:text-white">{timeLeft}s</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Time Left</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-card-foreground">{timeLeft}s</div>
+          <div className="text-sm text-muted-foreground">Time Left</div>
         </Card>
       </div>
 
       {/* Typing Area */}
-      <Card className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+      <Card className="p-6 bg-card border-border">
         <div className="space-y-4">
           {/* Text Display */}
-          <div className="text-lg leading-relaxed font-mono p-4 bg-gray-50 dark:bg-gray-800 rounded-lg min-h-[120px] select-none">
+          <div className="text-lg leading-relaxed font-mono p-4 bg-muted rounded-lg min-h-[120px] select-none">
             {renderText()}
           </div>
 
@@ -269,7 +267,7 @@ export default function TypingTest() {
             onChange={handleInputChange}
             disabled={isCompleted || timeLeft === 0}
             placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
-            className="w-full h-32 p-4 text-lg font-mono bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-black dark:text-white"
+            className="w-full h-32 p-4 text-lg font-mono bg-input border-border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed text-foreground"
             autoFocus
           />
         </div>
@@ -277,20 +275,17 @@ export default function TypingTest() {
 
       {/* Controls */}
       <div className="flex justify-center gap-4">
-        <Button onClick={resetTest} variant="outline" className="border-gray-300 dark:border-gray-600 bg-transparent">
+        <Button onClick={resetTest} variant="outline" className="border-border bg-transparent">
           New Test
         </Button>
         {isCompleted && (
-          <Button
-            onClick={resetTest}
-            className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
-          >
+          <Button onClick={resetTest} className="bg-primary text-primary-foreground hover:bg-primary/90">
             Try Again
           </Button>
         )}
       </div>
 
-      <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+      <div className="text-center text-sm text-muted-foreground">
         <p>
           Keyboard shortcuts: Cmd+Shift+R (restart) • Cmd+Shift+T (theme) • Cmd+Shift+F (font) • Cmd+Shift+S (shake)
         </p>
