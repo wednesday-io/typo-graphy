@@ -116,13 +116,27 @@ export default function TypingTest() {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
 
-    const currentWordEnd = currentText.indexOf(" ", currentIndex)
-    const isAtWordEnd = currentWordEnd === -1 ? currentIndex >= currentText.length - 1 : currentIndex >= currentWordEnd
-
-    // If user types space and we're not at a space in the original text, don't allow it
+    // If user types space, find the next space in the original text and jump there
     if (value.length > userInput.length && value[value.length - 1] === " ") {
-      if (currentIndex < currentText.length && currentText[currentIndex] !== " ") {
-        return // Don't update if trying to add space where there shouldn't be one
+      const nextSpaceIndex = currentText.indexOf(" ", currentIndex)
+      if (nextSpaceIndex !== -1) {
+        // Fill in the skipped characters as errors and jump to after the next space
+        const skippedText = currentText.substring(userInput.length, nextSpaceIndex + 1)
+        const newInput = userInput + skippedText
+        setUserInput(newInput)
+        setCurrentIndex(newInput.length)
+
+        // Start the test on first keystroke
+        if (!isActive && newInput.length === 1) {
+          setIsActive(true)
+        }
+
+        // Check if completed
+        if (newInput.length === currentText.length) {
+          setIsActive(false)
+          setIsCompleted(true)
+        }
+        return
       }
     }
 
