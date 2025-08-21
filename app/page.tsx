@@ -9,7 +9,7 @@ export default function Home() {
   const [selectedFont, setSelectedFont] = useState("font-mono")
 
   return (
-    <div className={`flex flex-col min-h-screen bg-background ${selectedFont}`}>
+    <div className={`flex min-h-screen flex-col bg-background ${selectedFont}`}>
       <header className="flex justify-between items-center p-6">
         <h1 className="text-3xl font-bold text-white">Typo-graphy</h1>
         <div className="flex items-center gap-3">
