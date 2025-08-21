@@ -18,10 +18,10 @@ export default function Home() {
           <ThemeToggle />
         </div>
       </header>
-      <main className="flex flex-col container mx-auto px-6 items-center justify-center">
+      <main className="flex flex-col container mx-auto px-6 items-center justify-center flex-1">
         <TypingTest />
       </main>
-      <footer className="text-center py-6">
+      <footer className="text-center py-6 mt-auto">
         <p className="text-sm text-white/50">v21.0.0</p>
       </footer>
     </div>
