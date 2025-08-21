@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     "A modern typing test app to improve your typing speed and accuracy. Practice with real-time feedback, scoring, and performance tracking.",
   generator: "v0.app",
   keywords: ["typing test", "typing speed", "WPM", "typing practice", "keyboard skills"],
+  icons: {
+    icon: "/favicon-32x32.png",
+    shortcut: "/favicon-32x32.png",
+    apple: "/favicon-32x32.png",
+  },
 }
 
 export default function RootLayout({
