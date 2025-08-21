@@ -82,8 +82,7 @@
 
 @layer base {
   * {
-    @apply outline-ring/50;
-    border-color: hsl(var(--border));
+    @apply border-[color:var(--border)] outline-ring/50;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
@@ -97,34 +96,28 @@
     @apply relative inline-block;
   }
 
-  /* Smart tooltip positioning that adapts to viewport constraints */
   .tooltip-wrapper::after {
     content: attr(data-tooltip);
-    @apply absolute left-1/2 transform -translate-x-1/2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-50;
-    /* Default position: above the element */
-    bottom: 100%;
-    margin-bottom: 8px;
+    @apply absolute left-1/2 transform -translate-x-1/2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg opacity-0 pointer-events-none transition-all duration-200 whitespace-nowrap z-50;
+    bottom: calc(100% + 8px);
   }
 
-  /* Show tooltip below when near top of viewport */
-  .tooltip-wrapper.tooltip-below::after {
+  .tooltip-wrapper[data-position="bottom"]::after {
     bottom: auto;
-    top: 100%;
-    margin-bottom: 0;
-    margin-top: 8px;
+    top: calc(100% + 8px);
   }
 
-  /* Show tooltip to the left when near right edge */
-  .tooltip-wrapper.tooltip-left::after {
+  .tooltip-wrapper[data-position="left"]::after {
     left: auto;
     right: 0;
     transform: translateX(0);
+    bottom: calc(100% + 8px);
   }
 
-  /* Show tooltip to the right when near left edge */
-  .tooltip-wrapper.tooltip-right::after {
+  .tooltip-wrapper[data-position="right"]::after {
     left: 0;
     transform: translateX(0);
+    bottom: calc(100% + 8px);
   }
 
   .tooltip-wrapper:hover::after {

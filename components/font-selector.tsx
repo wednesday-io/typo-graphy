@@ -2,7 +2,8 @@
 import { ChevronDown, Type } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
+import { TooltipWrapper } from "./tooltip-wrapper"
 
 const fonts = [
   { name: "Geist Sans", value: "font-geist", label: "Modern Sans" },
@@ -20,7 +21,6 @@ interface FontSelectorProps {
 export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) {
   const currentFont = fonts.find((font) => font.value === selectedFont) || fonts[0]
   const [isOpen, setIsOpen] = useState(false)
-  const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleToggleFont = () => {
@@ -33,43 +33,8 @@ export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) 
     return () => window.removeEventListener("toggle-font", handleToggleFont)
   }, [selectedFont, onFontChange])
 
-  useEffect(() => {
-    const updateTooltipPosition = () => {
-      if (!wrapperRef.current) return
-
-      const rect = wrapperRef.current.getBoundingClientRect()
-      const wrapper = wrapperRef.current
-
-      // Reset classes
-      wrapper.classList.remove("tooltip-below", "tooltip-left", "tooltip-right")
-
-      // Check if tooltip would be cut off at top
-      if (rect.top < 60) {
-        wrapper.classList.add("tooltip-below")
-      }
-
-      // Check if tooltip would be cut off at right edge
-      if (rect.right > window.innerWidth - 100) {
-        wrapper.classList.add("tooltip-left")
-      }
-
-      // Check if tooltip would be cut off at left edge
-      if (rect.left < 100) {
-        wrapper.classList.add("tooltip-right")
-      }
-    }
-
-    const handleMouseEnter = () => updateTooltipPosition()
-    const wrapper = wrapperRef.current
-
-    if (wrapper) {
-      wrapper.addEventListener("mouseenter", handleMouseEnter)
-      return () => wrapper.removeEventListener("mouseenter", handleMouseEnter)
-    }
-  }, [])
-
   return (
-    <div ref={wrapperRef} className="tooltip-wrapper" data-tooltip="Change font (Cmd+Shift+F)">
+    <TooltipWrapper tooltip="Change font (Cmd+Shift+F)">
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" className="h-9 gap-2">
@@ -93,6 +58,6 @@ export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) 
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-    </div>
+    </TooltipWrapper>
   )
 }
