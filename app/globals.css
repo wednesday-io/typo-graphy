@@ -82,6 +82,7 @@
 
 @layer base {
   * {
+    /* Fixed malformed utility class by adding space between border and outline utilities */
     @apply border-[color:var(--border)] outline-ring/50;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
