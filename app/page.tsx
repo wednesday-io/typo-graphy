@@ -21,7 +21,7 @@ export default function Home() {
       <main className="flex flex-col container mx-auto px-6 items-center justify-center">
         <TypingTest />
       </main>
-      <footer className="text-center py-6 self-end">
+      <footer className="text-center py-6 align-self-end">
         <p className="text-sm text-white/50">v21.0.0</p>
       </footer>
     </div>
