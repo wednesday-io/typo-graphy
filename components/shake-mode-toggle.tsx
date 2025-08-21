@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 
 export default function ShakeModeToggle() {
   const [shakeMode, setShakeMode] = useState(false)
+  const wrapperRef = useRef<HTMLDivElement>(null)
 
   // Listen for keyboard shortcut
   useEffect(() => {
@@ -24,8 +25,43 @@ export default function ShakeModeToggle() {
     window.dispatchEvent(new CustomEvent("shake-mode-change", { detail: shakeMode }))
   }, [shakeMode])
 
+  useEffect(() => {
+    const updateTooltipPosition = () => {
+      if (!wrapperRef.current) return
+
+      const rect = wrapperRef.current.getBoundingClientRect()
+      const wrapper = wrapperRef.current
+
+      // Reset classes
+      wrapper.classList.remove("tooltip-below", "tooltip-left", "tooltip-right")
+
+      // Check if tooltip would be cut off at top
+      if (rect.top < 60) {
+        wrapper.classList.add("tooltip-below")
+      }
+
+      // Check if tooltip would be cut off at right edge
+      if (rect.right > window.innerWidth - 100) {
+        wrapper.classList.add("tooltip-left")
+      }
+
+      // Check if tooltip would be cut off at left edge
+      if (rect.left < 100) {
+        wrapper.classList.add("tooltip-right")
+      }
+    }
+
+    const handleMouseEnter = () => updateTooltipPosition()
+    const wrapper = wrapperRef.current
+
+    if (wrapper) {
+      wrapper.addEventListener("mouseenter", handleMouseEnter)
+      return () => wrapper.removeEventListener("mouseenter", handleMouseEnter)
+    }
+  }, [])
+
   return (
-    <div className="tooltip-wrapper" data-tooltip="Toggle shake mode (Cmd+Shift+S)">
+    <div ref={wrapperRef} className="tooltip-wrapper" data-tooltip="Toggle shake mode (Cmd+Shift+S)">
       <Button
         onClick={() => setShakeMode(!shakeMode)}
         variant={shakeMode ? "default" : "outline"}

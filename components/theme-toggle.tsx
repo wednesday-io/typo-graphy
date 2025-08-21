@@ -1,12 +1,13 @@
 "use client"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme()
+  const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleToggleTheme = () => {
@@ -17,8 +18,43 @@ export function ThemeToggle() {
     return () => window.removeEventListener("toggle-theme", handleToggleTheme)
   }, [setTheme, theme])
 
+  useEffect(() => {
+    const updateTooltipPosition = () => {
+      if (!wrapperRef.current) return
+
+      const rect = wrapperRef.current.getBoundingClientRect()
+      const wrapper = wrapperRef.current
+
+      // Reset classes
+      wrapper.classList.remove("tooltip-below", "tooltip-left", "tooltip-right")
+
+      // Check if tooltip would be cut off at top
+      if (rect.top < 60) {
+        wrapper.classList.add("tooltip-below")
+      }
+
+      // Check if tooltip would be cut off at right edge
+      if (rect.right > window.innerWidth - 100) {
+        wrapper.classList.add("tooltip-left")
+      }
+
+      // Check if tooltip would be cut off at left edge
+      if (rect.left < 100) {
+        wrapper.classList.add("tooltip-right")
+      }
+    }
+
+    const handleMouseEnter = () => updateTooltipPosition()
+    const wrapper = wrapperRef.current
+
+    if (wrapper) {
+      wrapper.addEventListener("mouseenter", handleMouseEnter)
+      return () => wrapper.removeEventListener("mouseenter", handleMouseEnter)
+    }
+  }, [])
+
   return (
-    <div className="tooltip-wrapper" data-tooltip="Toggle theme (Cmd+Shift+T)">
+    <div ref={wrapperRef} className="tooltip-wrapper" data-tooltip="Toggle theme (Cmd+Shift+T)">
       <Button
         variant="ghost"
         size="icon"
