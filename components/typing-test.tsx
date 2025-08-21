@@ -226,7 +226,7 @@ export default function TypingTest() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 py-8">
+    <div className="max-w-4xl mx-auto space-y-8 py-8 flex flex-col items-center justify-center min-h-screen">
       <div className="flex justify-center items-center gap-8 text-center">
         <div>
           <div className="text-3xl font-bold text-white">{stats.wpm}</div>
