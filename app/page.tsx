@@ -9,7 +9,7 @@ export default function Home() {
   const [selectedFont, setSelectedFont] = useState("font-mono")
 
   return (
-    <div className={`min-h-screen bg-background ${selectedFont} flex flex-col`}>
+    <div className={`flex flex-col min-h-screen bg-background ${selectedFont}`}>
       <header className="flex justify-between items-center p-6">
         <h1 className="text-3xl font-bold text-white">Typo-graphy</h1>
         <div className="flex items-center gap-3">
@@ -18,11 +18,11 @@ export default function Home() {
           <ThemeToggle />
         </div>
       </header>
-      <main className="container mx-auto px-6 flex-1">
+      <main className="flex-1 container mx-auto px-6">
         <TypingTest />
       </main>
-      <footer className="text-center py-6 mt-auto">
-        <p className="text-sm text-white/50">v17.0.0</p>
+      <footer className="text-center py-6">
+        <p className="text-sm text-white/50">v21.0.0</p>
       </footer>
     </div>
   )

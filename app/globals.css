@@ -5,22 +5,22 @@
 
 :root {
   /* Applied custom color palette from user's image */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(1 0 0); /* Light beige/cream */
+  --foreground: oklch(0.145 0 0); /* White text */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.145 0 0); /* White text */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.145 0 0); /* White text */
+  --primary: oklch(0.205 0 0); /* Dark blue-gray */
+  --primary-foreground: oklch(0.985 0 0); /* White text */
+  --secondary: oklch(0.97 0 0); /* Light purple/lavender */
+  --secondary-foreground: oklch(0.205 0 0); /* White text */
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.556 0 0); /* White text */
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --accent-foreground: oklch(0.205 0 0); /* White text */
+  --destructive: oklch(0.577 0.245 27.325); /* Light red for errors */
+  --destructive-foreground: oklch(0.577 0.245 27.325); /* White text */
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -31,33 +31,41 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.145 0 0); /* White text */
   --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0); /* White text */
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0); /* White text */
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Added proper font variable mappings for all imported fonts */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  --font-jetbrains: var(--font-jetbrains), ui-monospace, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  --font-courier: var(--font-courier), "Courier New", monospace;
+  --font-fira: var(--font-fira), ui-monospace, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .dark {
   /* Dark theme using the same palette with inverted relationships */
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: oklch(0.145 0 0); /* Very dark blue-green */
+  --foreground: oklch(0.985 0 0); /* White text */
   --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
+  --card-foreground: oklch(0.985 0 0); /* White text */
   --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
+  --popover-foreground: oklch(0.985 0 0); /* White text */
+  --primary: oklch(0.985 0 0); /* Light purple/lavender */
+  --primary-foreground: oklch(0.205 0 0); /* White text */
+  --secondary: oklch(0.269 0 0); /* Dark blue-gray */
+  --secondary-foreground: oklch(0.985 0 0); /* White text */
   --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --muted-foreground: oklch(0.708 0 0); /* White text */
   --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --accent-foreground: oklch(0.985 0 0); /* White text */
+  --destructive: oklch(0.396 0.141 25.723); /* Lighter red for dark mode */
+  --destructive-foreground: oklch(0.637 0.237 25.331); /* White text */
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
@@ -67,28 +75,17 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.985 0 0); /* White text */
   --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0); /* White text */
   --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0); /* White text */
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
 }
 
 @theme inline {
-  /* Fixed font variable mappings to match layout.tsx imports */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-jetbrains: var(--font-jetbrains);
-  --font-courier: var(--font-courier);
-  --font-fira: var(--font-fira);
-
-  /* Color variables */
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -145,7 +142,7 @@
 
   .tooltip-wrapper::after {
     content: attr(data-tooltip);
-    /* Updated tooltip positioning to be viewport-aware and prevent overflow */
+    /* Changed positioning from bottom-full left-1/2 to top-full left-0 for bottom left placement */
     @apply absolute top-full left-0 mt-2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-50;
     /* Prevent tooltip from going off-screen */
     transform: translateX(0);
@@ -159,11 +156,12 @@
     @apply opacity-100;
   }
 
-  /* Adjust tooltip position when near right edge of screen */
+  /* Smart positioning for tooltips that would overflow */
   .tooltip-wrapper:last-child::after,
-  .tooltip-wrapper:nth-last-child(2)::after {
+  .tooltip-wrapper:nth-last-child(-n + 2)::after {
     left: auto;
     right: 0;
+    transform: translateX(0);
   }
 
   .dark .tooltip-wrapper::after {
