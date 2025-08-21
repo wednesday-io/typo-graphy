@@ -125,3 +125,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .tooltip-wrapper {
+    @apply relative inline-block;
+  }
+
+  .tooltip-wrapper::after {
+    content: attr(data-tooltip);
+    @apply absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-50;
+  }
+
+  .tooltip-wrapper:hover::after {
+    @apply opacity-100;
+  }
+
+  .dark .tooltip-wrapper::after {
+    @apply bg-gray-800 text-white;
+  }
+}

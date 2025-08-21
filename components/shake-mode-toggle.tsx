@@ -25,18 +25,19 @@ export default function ShakeModeToggle() {
   }, [shakeMode])
 
   return (
-    <Button
-      onClick={() => setShakeMode(!shakeMode)}
-      variant={shakeMode ? "default" : "outline"}
-      size="sm"
-      className={
-        shakeMode
-          ? "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
-          : "border-gray-300 dark:border-gray-600 bg-transparent"
-      }
-      title="Toggle shake mode (Cmd+Shift+S)" // Added tooltip with keyboard shortcut
-    >
-      {shakeMode ? "🎉 Shake" : "Shake"}
-    </Button>
+    <div className="tooltip-wrapper" data-tooltip="Toggle shake mode (Cmd+Shift+S)">
+      <Button
+        onClick={() => setShakeMode(!shakeMode)}
+        variant={shakeMode ? "default" : "outline"}
+        size="sm"
+        className={
+          shakeMode
+            ? "bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200"
+            : "border-gray-300 dark:border-gray-600 bg-transparent"
+        }
+      >
+        {shakeMode ? "🎉 Shake" : "Shake"}
+      </Button>
+    </div>
   )
 }

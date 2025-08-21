@@ -33,28 +33,30 @@ export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) 
   }, [selectedFont, onFontChange])
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-9 gap-2" title="Change font (Cmd+Shift+F)">
-          <Type className="h-4 w-4" />
-          <span className="hidden sm:inline">{currentFont.label}</span>
-          <ChevronDown className="h-3 w-3" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        {fonts.map((font) => (
-          <DropdownMenuItem
-            key={font.value}
-            onClick={() => onFontChange(font.value)}
-            className={`${font.value} cursor-pointer`}
-          >
-            <div className="flex flex-col">
-              <span className="font-medium">{font.name}</span>
-              <span className="text-xs text-muted-foreground">{font.label}</span>
-            </div>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="tooltip-wrapper" data-tooltip="Change font (Cmd+Shift+F)">
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm" className="h-9 gap-2">
+            <Type className="h-4 w-4" />
+            <span className="hidden sm:inline">{currentFont.label}</span>
+            <ChevronDown className="h-3 w-3" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48">
+          {fonts.map((font) => (
+            <DropdownMenuItem
+              key={font.value}
+              onClick={() => onFontChange(font.value)}
+              className={`${font.value} cursor-pointer`}
+            >
+              <div className="flex flex-col">
+                <span className="font-medium">{font.name}</span>
+                <span className="text-xs text-muted-foreground">{font.label}</span>
+              </div>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   )
 }
