@@ -66,6 +66,41 @@
   --chart-3: #f3e2d4;
   --chart-4: #17313e;
   --chart-5: #fca5a5;
+  --sidebar: #17313e;
+  --sidebar-foreground: #ffffff; /* White text */
+  --sidebar-primary: #c5b0cd;
+  --sidebar-primary-foreground: #ffffff; /* White text */
+  --sidebar-accent: #415e72;
+  --sidebar-accent-foreground: #ffffff; /* White text */
+  --sidebar-border: #415e72;
+  --sidebar-ring: #c5b0cd;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -82,8 +117,7 @@
 
 @layer base {
   * {
-    /* Fixed malformed utility class by adding space between border and outline utilities */
-    @apply border-[color:var(--border)] outline-ring/50;
+    @apply border-border outline-ring/50;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
@@ -99,26 +133,8 @@
 
   .tooltip-wrapper::after {
     content: attr(data-tooltip);
-    @apply absolute left-1/2 transform -translate-x-1/2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg opacity-0 pointer-events-none transition-all duration-200 whitespace-nowrap z-50;
-    bottom: calc(100% + 8px);
-  }
-
-  .tooltip-wrapper[data-position="bottom"]::after {
-    bottom: auto;
-    top: calc(100% + 8px);
-  }
-
-  .tooltip-wrapper[data-position="left"]::after {
-    left: auto;
-    right: 0;
-    transform: translateX(0);
-    bottom: calc(100% + 8px);
-  }
-
-  .tooltip-wrapper[data-position="right"]::after {
-    left: 0;
-    transform: translateX(0);
-    bottom: calc(100% + 8px);
+    /* Changed positioning from bottom-full left-1/2 to top-full left-0 for bottom left placement */
+    @apply absolute top-full left-0 mt-2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-50;
   }
 
   .tooltip-wrapper:hover::after {

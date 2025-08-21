@@ -3,7 +3,6 @@ import { ChevronDown, Type } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useEffect, useState } from "react"
-import { TooltipWrapper } from "./tooltip-wrapper"
 
 const fonts = [
   { name: "Geist Sans", value: "font-geist", label: "Modern Sans" },
@@ -34,7 +33,7 @@ export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) 
   }, [selectedFont, onFontChange])
 
   return (
-    <TooltipWrapper tooltip="Change font (Cmd+Shift+F)">
+    <div className="tooltip-wrapper" data-tooltip="Change font (Cmd+Shift+F)">
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" className="h-9 gap-2">
@@ -58,6 +57,6 @@ export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) 
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-    </TooltipWrapper>
+    </div>
   )
 }

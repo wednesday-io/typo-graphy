@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { TooltipWrapper } from "./tooltip-wrapper"
 
 export default function ShakeModeToggle() {
   const [shakeMode, setShakeMode] = useState(false)
@@ -26,7 +25,7 @@ export default function ShakeModeToggle() {
   }, [shakeMode])
 
   return (
-    <TooltipWrapper tooltip="Toggle shake mode (Cmd+Shift+S)">
+    <div className="tooltip-wrapper" data-tooltip="Toggle shake mode (Cmd+Shift+S)">
       <Button
         onClick={() => setShakeMode(!shakeMode)}
         variant={shakeMode ? "default" : "outline"}
@@ -39,6 +38,6 @@ export default function ShakeModeToggle() {
       >
         {shakeMode ? "🎉 Shake" : "Shake"}
       </Button>
-    </TooltipWrapper>
+    </div>
   )
 }
