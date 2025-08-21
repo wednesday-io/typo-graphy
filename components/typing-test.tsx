@@ -3,7 +3,6 @@
 import type React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 
 const SAMPLE_TEXTS = [
   "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet at least once.",
@@ -206,15 +205,13 @@ export default function TypingTest() {
       }
 
       if (index < userInput.length) {
-        // Typed characters
         if (userInput[index] === char) {
-          className += "text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/30"
+          className += "text-green-400"
         } else {
-          className += "text-red-400 bg-red-100 dark:text-red-300 dark:bg-red-900/30"
+          className += "text-red-400"
         }
-      } else if (index === currentIndex) {
-        // Current character
-        className += "bg-primary text-primary-foreground animate-pulse"
+      } else if (index === currentIndex && userInput.length > 0) {
+        className += "text-blue-400 animate-pulse"
       } else {
         // Untyped characters
         className += "text-muted-foreground"
@@ -229,66 +226,53 @@ export default function TypingTest() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <p className="text-muted-foreground">Test your typing speed and accuracy</p>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4 text-center bg-card border-border">
-          <div className="text-2xl font-bold text-card-foreground">{stats.wpm}</div>
-          <div className="text-sm text-muted-foreground">WPM</div>
-        </Card>
-        <Card className="p-4 text-center bg-card border-border">
-          <div className="text-2xl font-bold text-card-foreground">{stats.accuracy}%</div>
-          <div className="text-sm text-muted-foreground">Accuracy</div>
-        </Card>
-        <Card className="p-4 text-center bg-card border-border">
-          <div className="text-2xl font-bold text-destructive">{stats.errors}</div>
-          <div className="text-sm text-muted-foreground">Errors</div>
-        </Card>
-        <Card className="p-4 text-center bg-card border-border">
-          <div className="text-2xl font-bold text-card-foreground">{timeLeft}s</div>
-          <div className="text-sm text-muted-foreground">Time Left</div>
-        </Card>
-      </div>
-
-      {/* Typing Area */}
-      <Card className="p-6 bg-card border-border">
-        <div className="space-y-4">
-          {/* Text Display */}
-          <div className="text-lg leading-relaxed font-mono p-4 bg-muted rounded-lg min-h-[120px] select-none">
-            {renderText()}
-          </div>
-
-          {/* Input Area */}
-          <textarea
-            value={userInput}
-            onChange={handleInputChange}
-            disabled={isCompleted || timeLeft === 0}
-            placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
-            className="w-full h-32 p-4 text-lg font-mono bg-input border-border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed text-foreground"
-            autoFocus
-          />
+    <div className="max-w-4xl mx-auto space-y-8 py-8">
+      <div className="flex justify-center items-center gap-8 text-center">
+        <div>
+          <div className="text-3xl font-bold text-white">{stats.wpm}</div>
+          <div className="text-sm text-white/70">WPM</div>
         </div>
-      </Card>
+        <div className="w-px h-12 bg-white/20"></div>
+        <div>
+          <div className="text-3xl font-bold text-white">{stats.accuracy}%</div>
+          <div className="text-sm text-white/70">Accuracy</div>
+        </div>
+        <div className="w-px h-12 bg-white/20"></div>
+        <div>
+          <div className="text-3xl font-bold text-red-400">{stats.errors}</div>
+          <div className="text-sm text-white/70">Errors</div>
+        </div>
+        <div className="w-px h-12 bg-white/20"></div>
+        <div>
+          <div className="text-3xl font-bold text-white">{timeLeft}s</div>
+          <div className="text-sm text-white/70">Time Left</div>
+        </div>
+      </div>
 
-      {/* Controls */}
-      <div className="flex justify-center gap-4">
-        <Button onClick={resetTest} variant="outline" className="border-border bg-transparent">
+      <div className="space-y-6">
+        {/* Text Display */}
+        <div className="text-xl leading-relaxed font-mono p-6 bg-white/5 rounded-lg min-h-[140px] select-none border border-white/10">
+          {renderText()}
+        </div>
+
+        {/* Input Area */}
+        <textarea
+          value={userInput}
+          onChange={handleInputChange}
+          disabled={isCompleted || timeLeft === 0}
+          placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
+          className="w-full h-32 p-4 text-lg font-mono bg-white/5 border border-white/10 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder:text-white/50"
+          autoFocus
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <Button
+          onClick={resetTest}
+          className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-2"
+        >
           New Test
         </Button>
-        {isCompleted && (
-          <Button onClick={resetTest} className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Try Again
-          </Button>
-        )}
-      </div>
-
-      <div className="text-center text-sm text-muted-foreground">
-        <p>
-          Keyboard shortcuts: Cmd+Shift+R (restart) • Cmd+Shift+T (theme) • Cmd+Shift+F (font) • Cmd+Shift+S (shake)
-        </p>
       </div>
     </div>
   )

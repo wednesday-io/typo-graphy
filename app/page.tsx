@@ -10,19 +10,19 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-background ${selectedFont}`}>
-      <header className="flex justify-between items-center p-4">
-        <h1 className="text-2xl font-bold text-foreground">Typo-graphy</h1>
-        <div className="flex items-center gap-2">
+      <header className="flex justify-between items-center p-6">
+        <h1 className="text-3xl font-bold text-white">Typo-graphy</h1>
+        <div className="flex items-center gap-3">
           <ShakeModeToggle />
           <FontSelector selectedFont={selectedFont} onFontChange={setSelectedFont} />
           <ThemeToggle />
         </div>
       </header>
-      <main className="container mx-auto px-4">
+      <main className="container mx-auto px-6">
         <TypingTest />
       </main>
-      <footer className="text-center py-4 mt-8 border-t border-border">
-        <p className="text-sm text-muted-foreground">Typo-graphy v1.0.0 - Master Your Typing Skills</p>
+      <footer className="text-center py-6 mt-12">
+        <p className="text-sm text-white/50">v1.0.0</p>
       </footer>
     </div>
   )

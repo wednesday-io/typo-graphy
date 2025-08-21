@@ -35,7 +35,7 @@ export function FontSelector({ selectedFont, onFontChange }: FontSelectorProps) 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-9 gap-2">
+        <Button variant="ghost" size="sm" className="h-9 gap-2" title="Change font (Cmd+Shift+F)">
           <Type className="h-4 w-4" />
           <span className="hidden sm:inline">{currentFont.label}</span>
           <ChevronDown className="h-3 w-3" />
