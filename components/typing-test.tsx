@@ -5,10 +5,62 @@ import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 
 const SAMPLE_TEXTS = [
-  "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet at least once.",
-  "Programming is the art of telling another human being what one wants the computer to do. It requires patience and precision.",
-  "In the world of technology, typing speed and accuracy are essential skills that can significantly improve productivity.",
-  "Practice makes perfect when it comes to developing muscle memory for keyboard layouts and common word patterns.",
+  {
+    text: "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet at least once.",
+    source: "Classic Pangram",
+  },
+  {
+    text: "Programming is the art of telling another human being what one wants the computer to do. It requires patience and precision.",
+    source: "Programming Wisdom",
+  },
+  {
+    text: "In the world of technology, typing speed and accuracy are essential skills that can significantly improve productivity.",
+    source: "Tech Skills",
+  },
+  {
+    text: "Practice makes perfect when it comes to developing muscle memory for keyboard layouts and common word patterns.",
+    source: "Learning Theory",
+  },
+  {
+    text: "People's lives don't end when they die. It ends when they lose faith.",
+    source: "Itachi Uchiha - Naruto",
+  },
+  {
+    text: "If you don't take risks, you can't create a future.",
+    source: "Monkey D. Luffy - One Piece",
+  },
+  {
+    text: "The world is not perfect. But it's there for us, doing the best it can. That's what makes it so damn beautiful.",
+    source: "Roy Mustang - Fullmetal Alchemist",
+  },
+  {
+    text: "Hard work is absolutely necessary. But in the end, your ability to adapt is far more important.",
+    source: "Killua Zoldyck - Hunter x Hunter",
+  },
+  {
+    text: "It's not the face that makes someone a monster, it's the choices they make with their lives.",
+    source: "Naruto Uzumaki - Naruto",
+  },
+  {
+    text: "The moment you think of giving up, think of the reason why you held on so long.",
+    source: "Natsu Dragneel - Fairy Tail",
+  },
+  {
+    text: "Being weak is nothing to be ashamed of. Staying weak is.",
+    source: "Fuegoleon Vermillion - Black Clover",
+  },
+  {
+    text: "Dreams don't have expiration dates. Take a deep breath and try again.",
+    source: "All Might - My Hero Academia",
+  },
+  {
+    text: "The only way to truly escape the mundane is for you to constantly be evolving.",
+    source: "Senku Ishigami - Dr. Stone",
+  },
+  {
+    text: "Sometimes you need someone to save you from your own strength.",
+    source: "Levi Ackerman - Attack on Titan",
+  },
 ]
 
 interface TypingStats {
@@ -19,7 +71,7 @@ interface TypingStats {
 }
 
 export default function TypingTest() {
-  const [currentText, setCurrentText] = useState("")
+  const [currentTextObj, setCurrentTextObj] = useState({ text: "", source: "" })
   const [userInput, setUserInput] = useState("")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isActive, setIsActive] = useState(false)
@@ -67,8 +119,8 @@ export default function TypingTest() {
     const wpm = timeElapsed > 0 ? Math.round((wordsTyped / timeElapsed) * 60) : 0
 
     let errors = 0
-    for (let i = 0; i < Math.min(userInput.length, currentText.length); i++) {
-      if (userInput[i] !== currentText[i]) {
+    for (let i = 0; i < Math.min(userInput.length, currentTextObj.text.length); i++) {
+      if (userInput[i] !== currentTextObj.text[i]) {
         errors++
       }
     }
@@ -81,7 +133,7 @@ export default function TypingTest() {
       errors,
       timeElapsed,
     })
-  }, [userInput, currentText, timeLeft])
+  }, [userInput, currentTextObj.text, timeLeft])
 
   useEffect(() => {
     calculateStats()
@@ -131,10 +183,10 @@ export default function TypingTest() {
     const value = e.target.value
 
     if (value.length > userInput.length && value[value.length - 1] === " ") {
-      const nextSpaceIndex = currentText.indexOf(" ", currentIndex)
+      const nextSpaceIndex = currentTextObj.text.indexOf(" ", currentIndex)
       if (nextSpaceIndex !== -1) {
         // Fill in the skipped characters and jump to after the next space
-        const newInput = userInput + currentText.substring(userInput.length, nextSpaceIndex + 1)
+        const newInput = userInput + currentTextObj.text.substring(userInput.length, nextSpaceIndex + 1)
         setUserInput(newInput)
         setCurrentIndex(newInput.length)
 
@@ -144,7 +196,7 @@ export default function TypingTest() {
         }
 
         // Check if completed
-        if (newInput.length === currentText.length) {
+        if (newInput.length === currentTextObj.text.length) {
           setIsActive(false)
           setIsCompleted(true)
         }
@@ -153,7 +205,7 @@ export default function TypingTest() {
     }
 
     // Don't allow typing beyond the text length
-    if (value.length <= currentText.length) {
+    if (value.length <= currentTextObj.text.length) {
       setUserInput(value)
       setCurrentIndex(value.length)
 
@@ -163,7 +215,7 @@ export default function TypingTest() {
       }
 
       // Check if completed
-      if (value.length === currentText.length) {
+      if (value.length === currentTextObj.text.length) {
         setIsActive(false)
         setIsCompleted(true)
       }
@@ -171,8 +223,8 @@ export default function TypingTest() {
   }
 
   const resetTest = () => {
-    const randomText = SAMPLE_TEXTS[Math.floor(Math.random() * SAMPLE_TEXTS.length)]
-    setCurrentText(randomText)
+    const randomTextObj = SAMPLE_TEXTS[Math.floor(Math.random() * SAMPLE_TEXTS.length)]
+    setCurrentTextObj(randomTextObj)
     setUserInput("")
     setCurrentIndex(0)
     setIsActive(false)
@@ -182,7 +234,7 @@ export default function TypingTest() {
   }
 
   const renderText = () => {
-    const words = currentText.split(" ")
+    const words = currentTextObj.text.split(" ")
     let currentWordStart = 0
     let currentWordEnd = 0
     let wordIndex = 0
@@ -197,7 +249,7 @@ export default function TypingTest() {
       currentWordStart = currentWordEnd + 1 // +1 for space
     }
 
-    return currentText.split("").map((char, index) => {
+    return currentTextObj.text.split("").map((char, index) => {
       let className = "transition-colors duration-150 "
 
       if (shakeMode && index >= currentWordStart && index <= currentWordEnd && !isCompleted) {
@@ -265,6 +317,8 @@ export default function TypingTest() {
           autoFocus
         />
       </div>
+
+      {isCompleted && <div className="text-center text-white/70 text-sm italic">— {currentTextObj.source}</div>}
 
       <div className="flex justify-center">
         <Button
