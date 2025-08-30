@@ -22,7 +22,7 @@ export default function Home() {
         <TypingTest />
       </main>
       <footer className="text-center py-6 mt-auto">
-        <p className="text-sm text-white/50">v2.0.1</p>
+        <p className="text-sm text-white/50">v2.1.0</p>
       </footer>
     </div>
   )
