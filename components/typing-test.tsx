@@ -61,6 +61,86 @@ const SAMPLE_TEXTS = [
     text: "Sometimes you need someone to save you from your own strength.",
     source: "Levi Ackerman - Attack on Titan",
   },
+  {
+    text: "I am inevitable.",
+    source: "Thanos - Avengers: Endgame",
+  },
+  {
+    text: "With great power comes great responsibility.",
+    source: "Uncle Ben - Spider-Man",
+  },
+  {
+    text: "May the Force be with you.",
+    source: "Star Wars",
+  },
+  {
+    text: "I'll be back.",
+    source: "The Terminator",
+  },
+  {
+    text: "Why so serious?",
+    source: "The Joker - The Dark Knight",
+  },
+  {
+    text: "That's what she said.",
+    source: "Michael Scott - The Office",
+  },
+  {
+    text: "Winter is coming.",
+    source: "Game of Thrones",
+  },
+  {
+    text: "I am the one who knocks.",
+    source: "Walter White - Breaking Bad",
+  },
+  {
+    text: "The hardest choices require the strongest wills.",
+    source: "Thanos - Avengers: Infinity War",
+  },
+  {
+    text: "I can do this all day.",
+    source: "Captain America - Marvel",
+  },
+  {
+    text: "Believe it!",
+    source: "Naruto Uzumaki - Naruto",
+  },
+  {
+    text: "I'm going to be the Pirate King!",
+    source: "Monkey D. Luffy - One Piece",
+  },
+  {
+    text: "Plus Ultra!",
+    source: "All Might - My Hero Academia",
+  },
+  {
+    text: "I'll take a potato chip... and eat it!",
+    source: "Light Yagami - Death Note",
+  },
+  {
+    text: "It's over 9000!",
+    source: "Vegeta - Dragon Ball Z",
+  },
+  {
+    text: "I want to be the very best, like no one ever was.",
+    source: "Pokémon Theme Song",
+  },
+  {
+    text: "Kamehameha!",
+    source: "Goku - Dragon Ball",
+  },
+  {
+    text: "I have the power of God and anime on my side!",
+    source: "Internet Meme",
+  },
+  {
+    text: "Omae wa mou shindeiru.",
+    source: "Kenshiro - Fist of the North Star",
+  },
+  {
+    text: "Sasuke!",
+    source: "Naruto Uzumaki - Naruto",
+  },
 ]
 
 interface TypingStats {
@@ -222,6 +302,15 @@ export default function TypingTest() {
     }
   }
 
+  const restartSameTest = () => {
+    setUserInput("")
+    setCurrentIndex(0)
+    setIsActive(false)
+    setTimeLeft(60)
+    setIsCompleted(false)
+    setStats({ wpm: 0, accuracy: 100, errors: 0, timeElapsed: 0 })
+  }
+
   const resetTest = () => {
     const randomTextObj = SAMPLE_TEXTS[Math.floor(Math.random() * SAMPLE_TEXTS.length)]
     setCurrentTextObj(randomTextObj)
@@ -321,7 +410,15 @@ export default function TypingTest() {
         />
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-4">
+        {isCompleted && (
+          <Button
+            onClick={restartSameTest}
+            className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-2"
+          >
+            Restart Test
+          </Button>
+        )}
         <Button
           onClick={resetTest}
           className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-2"
