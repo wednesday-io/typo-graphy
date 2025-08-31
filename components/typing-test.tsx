@@ -22,124 +22,108 @@ const SAMPLE_TEXTS = [
     source: "Learning Theory",
   },
   {
-    text: "People's lives don't end when they die. It ends when they lose faith.",
+    text: "People's lives don't end when they die. It ends when they lose faith. The most important thing is not how long you live, but what you accomplish with your life.",
     source: "Itachi Uchiha - Naruto",
   },
   {
-    text: "If you don't take risks, you can't create a future.",
+    text: "If you don't take risks, you can't create a future. I'm gonna be King of the Pirates! I don't want to conquer anything. I just think the guy with the most freedom in this whole ocean is the Pirate King!",
     source: "Monkey D. Luffy - One Piece",
   },
   {
-    text: "The world is not perfect. But it's there for us, doing the best it can. That's what makes it so damn beautiful.",
+    text: "The world is not perfect. But it's there for us, doing the best it can. That's what makes it so damn beautiful. Even if we make mistakes, we can keep moving forward.",
     source: "Roy Mustang - Fullmetal Alchemist",
   },
   {
-    text: "Hard work is absolutely necessary. But in the end, your ability to adapt is far more important.",
+    text: "Hard work is absolutely necessary. But in the end, your ability to adapt is far more important. The real question is whether you have it in you to change.",
     source: "Killua Zoldyck - Hunter x Hunter",
   },
   {
-    text: "It's not the face that makes someone a monster, it's the choices they make with their lives.",
+    text: "It's not the face that makes someone a monster, it's the choices they make with their lives. Everyone deserves to be happy, including you.",
     source: "Naruto Uzumaki - Naruto",
   },
   {
-    text: "The moment you think of giving up, think of the reason why you held on so long.",
+    text: "The moment you think of giving up, think of the reason why you held on so long. Your feelings are what make you human, so don't ever lose them.",
     source: "Natsu Dragneel - Fairy Tail",
   },
   {
-    text: "Being weak is nothing to be ashamed of. Staying weak is.",
+    text: "Being weak is nothing to be ashamed of. Staying weak is. The only time you should ever look back is to see how far you've come.",
     source: "Fuegoleon Vermillion - Black Clover",
   },
   {
-    text: "Dreams don't have expiration dates. Take a deep breath and try again.",
+    text: "Dreams don't have expiration dates. Take a deep breath and try again. A true hero isn't measured by the size of his strength, but by the strength of his heart.",
     source: "All Might - My Hero Academia",
   },
   {
-    text: "The only way to truly escape the mundane is for you to constantly be evolving.",
+    text: "The only way to truly escape the mundane is for you to constantly be evolving. Science is the power to overcome any obstacle, no matter how impossible it may seem.",
     source: "Senku Ishigami - Dr. Stone",
   },
   {
-    text: "Sometimes you need someone to save you from your own strength.",
+    text: "Sometimes you need someone to save you from your own strength. The difference between the novice and the master is that the master has failed more times than the novice has tried.",
     source: "Levi Ackerman - Attack on Titan",
   },
   {
-    text: "I am inevitable.",
+    text: "I am inevitable. I used the stones to destroy the stones. It nearly killed me, but the work is done. It always will be. I am... inevitable.",
     source: "Thanos - Avengers: Endgame",
   },
   {
-    text: "With great power comes great responsibility.",
+    text: "With great power comes great responsibility. Remember, with great power comes great responsibility. And remember, Peter, with great power comes great responsibility.",
     source: "Uncle Ben - Spider-Man",
   },
   {
-    text: "May the Force be with you.",
+    text: "May the Force be with you. Do or do not, there is no try. Fear is the path to the dark side. Fear leads to anger, anger leads to hate, hate leads to suffering.",
     source: "Star Wars",
   },
   {
-    text: "I'll be back.",
+    text: "I'll be back. Come with me if you want to live. The future is not set. There is no fate but what we make for ourselves.",
     source: "The Terminator",
   },
   {
-    text: "Why so serious?",
+    text: "Why so serious? Let's put a smile on that face. You see, madness, as you know, is like gravity. All it takes is a little push.",
     source: "The Joker - The Dark Knight",
   },
   {
-    text: "That's what she said.",
+    text: "That's what she said. I'm not superstitious, but I am a little stitious. Sometimes I'll start a sentence and I don't even know where it's going. I just hope I find it along the way.",
     source: "Michael Scott - The Office",
   },
   {
-    text: "Winter is coming.",
+    text: "Winter is coming. A mind needs books as a sword needs a whetstone, if it is to keep its edge. The man who passes the sentence should swing the sword.",
     source: "Game of Thrones",
   },
   {
-    text: "I am the one who knocks.",
+    text: "I am the one who knocks. Say my name. You're goddamn right. I'm not in danger, Skyler. I am the danger. A guy opens his door and gets shot, and you think that of me? No. I am the one who knocks!",
     source: "Walter White - Breaking Bad",
   },
   {
-    text: "The hardest choices require the strongest wills.",
+    text: "The hardest choices require the strongest wills. You could not live with your own failure. Where did that bring you? Back to me. I thought by eliminating half of life, the other half would thrive.",
     source: "Thanos - Avengers: Infinity War",
   },
   {
-    text: "I can do this all day.",
+    text: "I can do this all day. I'm with you 'til the end of the line. The price of freedom is high. It always has been. But it's a price I'm willing to pay.",
     source: "Captain America - Marvel",
   },
   {
-    text: "Believe it!",
+    text: "Believe it! I'm gonna be Hokage someday! I won't run away anymore. I won't go back on my word. That is my ninja way! The next generation will always surpass the previous one.",
     source: "Naruto Uzumaki - Naruto",
   },
   {
-    text: "I'm going to be the Pirate King!",
+    text: "I'm going to be the Pirate King! I don't want to conquer anything. I just think the guy with the most freedom in this whole ocean is the Pirate King! Being alone is more painful than getting hurt.",
     source: "Monkey D. Luffy - One Piece",
   },
   {
-    text: "Plus Ultra!",
+    text: "Plus Ultra! A real hero always finds a way for justice to be served. Whether you win or lose, you can always come out ahead by learning from the experience.",
     source: "All Might - My Hero Academia",
   },
   {
-    text: "I'll take a potato chip... and eat it!",
+    text: "I'll take a potato chip... and eat it! I am justice! I protect the innocent and those who fear evil. I'm the one who will become the god of a new world that everyone desires!",
     source: "Light Yagami - Death Note",
   },
   {
-    text: "It's over 9000!",
+    text: "It's over 9000! I am the prince of all Saiyans! My pride is my strength! I will surpass Kakarot, and I will become the strongest warrior in the universe!",
     source: "Vegeta - Dragon Ball Z",
   },
   {
-    text: "I want to be the very best, like no one ever was.",
+    text: "I want to be the very best, like no one ever was. To catch them is my real test, to train them is my cause. I will travel across the land, searching far and wide.",
     source: "Pokémon Theme Song",
-  },
-  {
-    text: "Kamehameha!",
-    source: "Goku - Dragon Ball",
-  },
-  {
-    text: "I have the power of God and anime on my side!",
-    source: "Internet Meme",
-  },
-  {
-    text: "Omae wa mou shindeiru.",
-    source: "Kenshiro - Fist of the North Star",
-  },
-  {
-    text: "Sasuke!",
-    source: "Naruto Uzumaki - Naruto",
   },
 ]
 
