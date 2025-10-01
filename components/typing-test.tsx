@@ -376,7 +376,7 @@ export default function TypingTest() {
 
       <div className="space-y-6">
         {/* Text Display */}
-        <div className="text-xl leading-relaxed font-mono p-6 bg-white/5 rounded-lg min-h-[140px] select-none border border-white/10 relative">
+        <div className="text-xl leading-relaxed font-mono p-6 min-h-[140px] select-none relative">
           {renderText()}
           {isCompleted && (
             <div className="absolute bottom-2 right-4 text-white/70 text-sm italic">— {currentTextObj.source}</div>
