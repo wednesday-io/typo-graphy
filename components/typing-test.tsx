@@ -375,23 +375,20 @@ export default function TypingTest() {
       </div>
 
       <div className="space-y-6">
-        {/* Text Display */}
-        <div className="text-xl leading-relaxed font-mono p-6 min-h-[140px] select-none relative">
-          {renderText()}
+        {/* Input Area */}
+        <div className="relative">
+          <textarea
+            value={userInput}
+            onChange={handleInputChange}
+            disabled={isCompleted || timeLeft === 0}
+            placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
+            className="w-full h-32 p-4 text-lg font-mono bg-white/5 border border-white/10 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder:text-white/50"
+            autoFocus
+          />
           {isCompleted && (
             <div className="absolute bottom-2 right-4 text-white/70 text-sm italic">— {currentTextObj.source}</div>
           )}
         </div>
-
-        {/* Input Area */}
-        <textarea
-          value={userInput}
-          onChange={handleInputChange}
-          disabled={isCompleted || timeLeft === 0}
-          placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
-          className="w-full h-32 p-4 text-lg font-mono bg-white/5 border border-white/10 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder:text-white/50"
-          autoFocus
-        />
       </div>
 
       <div className="flex justify-center gap-4">
