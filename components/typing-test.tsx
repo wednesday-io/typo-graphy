@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { Button } from "@/components/ui/button"
 
 const SAMPLE_TEXTS = [
@@ -148,6 +148,7 @@ export default function TypingTest() {
   })
   const [isCompleted, setIsCompleted] = useState(false)
   const [shakeMode, setShakeMode] = useState(false)
+  const inputRef = useRef<HTMLTextAreaElement | null>(null)
 
   // Initialize with random text
   useEffect(() => {
@@ -242,6 +243,14 @@ export default function TypingTest() {
     window.addEventListener("shake-mode-change", handleShakeModeChange as EventListener)
     return () => window.removeEventListener("shake-mode-change", handleShakeModeChange as EventListener)
   }, [])
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    if (!isCompleted) inputRef.current?.focus()
+  }, [isCompleted])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value
@@ -375,20 +384,27 @@ export default function TypingTest() {
       </div>
 
       <div className="space-y-6">
-        {/* Input Area */}
-        <div className="relative">
-          <textarea
-            value={userInput}
-            onChange={handleInputChange}
-            disabled={isCompleted || timeLeft === 0}
-            placeholder={isActive ? "Keep typing..." : "Click here and start typing to begin the test"}
-            className="w-full h-32 p-4 text-lg font-mono bg-white/5 border border-white/10 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed text-white placeholder:text-white/50"
-            autoFocus
-          />
+        {/* Text Display */}
+        <div
+          className="text-xl leading-relaxed font-mono p-6 min-h-[140px] select-none relative"
+          onClick={() => inputRef.current?.focus()}
+        >
+          {renderText()}
           {isCompleted && (
             <div className="absolute bottom-2 right-4 text-white/70 text-sm italic">— {currentTextObj.source}</div>
           )}
         </div>
+
+        {/* Input Area - hidden but focused */}
+        <textarea
+          ref={inputRef}
+          value={userInput}
+          onChange={handleInputChange}
+          disabled={isCompleted || timeLeft === 0}
+          aria-hidden="true"
+          className="sr-only"
+          autoFocus
+        />
       </div>
 
       <div className="flex justify-center gap-4">
